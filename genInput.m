@@ -1,4 +1,4 @@
-function [ stack ] = genInput( z )
+function [ stack ] = genInput( E0, z )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
     num = size(z,2);
@@ -6,7 +6,6 @@ function [ stack ] = genInput( z )
     stack = zeros(nx, nx, num);
     lambda = 500e-9;
     dx = 10e-6;
-    E0
     for i = 1 : num
         dz = z(i);
         [E1,H] = fresnelprop(E0,lambda,dz,dx,nx * 2);
