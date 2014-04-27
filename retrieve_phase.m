@@ -1,4 +1,4 @@
-function [ E_guess,errors ] = retrieve_phase(Es, z, init_phase, lambda, dx, epsilon, iterations)
+function [ E_guess,errors ] = retrieve_phase(Es, z, init_phase, lambda, dx, epsilon, iterations, type)
 %   Retrieves phase using 
 %   Detailed explanation goes here
     intensities = abs(Es) .^2;
@@ -17,7 +17,7 @@ function [ E_guess,errors ] = retrieve_phase(Es, z, init_phase, lambda, dx, epsi
             errors = errors(1 : i);
             break
         else
-            E_guess = update(z, E_guess, intensities, lambda, dx);
+            E_guess = update(z, E_guess, intensities, lambda, dx, type);
         end
     end
     plot(errors);

@@ -5,9 +5,11 @@ epsilon = 0.0001;
 lambda = 500e-9;
 dx = 10e-6;
 iterations = 100;
-[stack, intensities] = genInput(Obj,z, lambda, dx);
+% 'sequential', 'mean', 'horseshoe'
+update_method = 'sequential'
+Es = genInput(Obj,z, lambda, dx);
 figure(3)
-[E_guess,errors] = retrieve_phase(Obj,E1,z,zeros(size(Obj,1),size(Obj,2)), lambda, dx, epsilon, iterations);
+[E_guess,errors] = retrieve_phase(Obj,E1,z,zeros(size(Obj,1),size(Obj,2)), lambda, dx, epsilon, iterations, update_method);
 figure(4)
 imshow(abs(E_guess));
 figure(5);
