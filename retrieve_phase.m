@@ -2,7 +2,7 @@ function [ E_guess,errors ] = retrieve_phase(Es, z, init_phase, lambda, dx, epsi
 %   Retrieves phase using 
 %   Detailed explanation goes here
     intensities = abs(Es) .^2;
-    E0 = Es(1);
+    E0 = Es(:,:,1);
     I0 = intensities(:,:,1);
     E_guess = sqrt(I0) .* exp(1i*init_phase);
     errors = zeros(1, iterations);
