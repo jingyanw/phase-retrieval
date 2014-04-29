@@ -40,12 +40,12 @@ elseif strcmp(type,'horseshoe') == 1
     e_pilgrim = e_guess;
     for i = 2 : length(zs)
         e_pilgrim = fresnelprop(e_pilgrim, lambda, zs(i)-zs(i-1), dx, nx*2);
-        e_prilgrim = sqrt(intensities(i)) .* (e_pilgrim ./ abs(e_prilgrim));
+        e_pilgrim = sqrt(intensities(i)) .* (e_pilgrim ./ abs(e_pilgrim));
     end
     %back-propagate
     for i = length(zs)-1 : -1 : 1
-        e_pilgrim = fresnelprop(e_pilgrim, lambda, z(i)-z(i+1), dx, nx*2);
-        e_prilgrim = sqrt(intensities(i)) .* (e_pilgrim ./ abs(e_prilgrim));
+        e_pilgrim = fresnelprop(e_pilgrim, lambda, zs(i)-zs(i+1), dx, nx*2);
+        e_pilgrim = sqrt(intensities(i)) .* (e_pilgrim ./ abs(e_pilgrim));
     end
     e0_update = e_pilgrim;
 else
