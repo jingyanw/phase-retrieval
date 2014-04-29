@@ -3,12 +3,11 @@ function [ e0_update ] = update( zs, e_guess, intensities, lambda, dx, type)
 % Recover the phase of i0
 
 nx = size(e_guess, 1);
-num = size(zs, 2) - 1;
 i0 = intensities(:,:,1);
 
 if strcmp(type,'mean') == 1
-    update = zeros(nx, nx, num - 1);
-    for i = 2 : num
+    update = zeros(nx, nx, length(zs) - 1);
+    for i = 2 : length(zs)
         z = zs(i);
         i1 = intensities(:,:,i);
         ip1 = fresnelprop(e_guess,lambda,z,dx, nx * 2); % propagate to the out-of focus z
@@ -20,8 +19,8 @@ if strcmp(type,'mean') == 1
     end
     
     e0_update = zeros(nx, nx);
-    for i = 2 : num
-        e0_update = e0_update + update(:,:,i - 1) / (num - 1);
+    for i = 2 : length(zs)
+        e0_update = e0_update + update(:,:,i - 1) / (length(zs) - 1);
     end
     
 elseif strcmp(type,'sequential') == 1
