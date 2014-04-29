@@ -4,7 +4,7 @@ function [ e0_update ] = update( zs, e_guess, intensities, lambda, dx, type)
 
 nx = size(e_guess, 1);
 num = size(zs, 2) - 1;
-i0 = intensities(1);
+i0 = intensities(:,:,1);
 
 if strcmp(type,'mean') == 1
     update = zeros(nx, nx, num - 1);
