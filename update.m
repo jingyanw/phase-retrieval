@@ -19,9 +19,9 @@ if strcmp(type,'mean') == 1
         update(:, :,i - 1) = e0_update;
     end
     
-    e0_update = e_guess;
-    for i = 1 : num - 1
-        e0_update = e0_update + update(:,:,i) / (num - 1);
+    e0_update = zeros(nx, nx);
+    for i = 2 : num
+        e0_update = e0_update + update(:,:,i - 1) / (num - 1);
     end
     
 elseif strcmp(type,'sequential') == 1
