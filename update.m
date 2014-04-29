@@ -10,7 +10,7 @@ if strcmp(type,'mean') == 1
     update = zeros(nx, nx, num - 1);
     for i = 2 : num
         z = zs(i);
-        i1 = intensities(i);
+        i1 = intensities(:,:,i);
         ip1 = fresnelprop(e_guess,lambda,z,dx, nx * 2); % propagate to the out-of focus z
         e1_update = sqrt(i1) .* (ip1 ./ abs(ip1));
         %back-propagate
@@ -29,10 +29,10 @@ elseif strcmp(type,'sequential') == 1
     e_scout = e_guess;
     for i = 2 : length(zs)
         e_scout = fresnelprop(e_scout, lambda, zs(i), dx, nx*2);
-        e_scout = sqrt(intensities(i)) .* (e_scout ./ abs(e_scout));
+        e_scout = sqrt(intensities(:,:,i)) .* (e_scout ./ abs(e_scout));
         %back-propagate
         e_scout = fresnelprop(e_scout, lambda, -zs(i), dx, nx*2);
-        e_scout = sqrt(intensities(1)) .* (e_scout ./ abs(e_scout));
+        e_scout = sqrt(intensities(:,:,1)) .* (e_scout ./ abs(e_scout));
     end
     e0_update = e_scout;
 elseif strcmp(type,'horseshoe') == 1
@@ -40,12 +40,12 @@ elseif strcmp(type,'horseshoe') == 1
     e_pilgrim = e_guess;
     for i = 2 : length(zs)
         e_pilgrim = fresnelprop(e_pilgrim, lambda, zs(i)-zs(i-1), dx, nx*2);
-        e_pilgrim = sqrt(intensities(i)) .* (e_pilgrim ./ abs(e_pilgrim));
+        e_pilgrim = sqrt(intensities(:,:,i)) .* (e_pilgrim ./ abs(e_pilgrim));
     end
     %back-propagate
     for i = length(zs)-1 : -1 : 1
         e_pilgrim = fresnelprop(e_pilgrim, lambda, zs(i)-zs(i+1), dx, nx*2);
-        e_pilgrim = sqrt(intensities(i)) .* (e_pilgrim ./ abs(e_pilgrim));
+        e_pilgrim = sqrt(intensities(:,:,i)) .* (e_pilgrim ./ abs(e_pilgrim));
     end
     e0_update = e_pilgrim;
 else
