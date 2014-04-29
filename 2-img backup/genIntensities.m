@@ -9,6 +9,6 @@ function [ E1, I0,intensities ] = genIntensities( E0,z , lambda, dx)
     for i = 1 : length(z)
         intensities(:,:,i) = abs(stack(:,:,i)).^2;
     end
-    save('intensities.mat','z');
-    save('intensities.mat','intensities');
+    %save('intensities.mat','z');
+    %save('intensities.mat','intensities');
 end
