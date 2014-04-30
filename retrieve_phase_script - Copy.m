@@ -8,7 +8,7 @@ z4 = [0, 120e-3];
 epsilon = 0.0001;
 lambda = 500e-9;
 dx = 10e-6;
-iterations = [10, 100];
+iterations = [10, 50];
 % update methods: 'sequential', 'mean', 'horseshoe'
 
 for i = 1 : 2    
@@ -58,4 +58,5 @@ end
 figure();
 imshow(angle(E0));
 title('Actual Phase Plot');
+imwrite();
 toc
