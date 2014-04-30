@@ -7,10 +7,12 @@ i0 = intensities(:,:,1);
 
 if strcmp(type,'mean') == 1
     update = zeros(nx, nx, length(zs) - 1);
+    e0_update = e_guess;
+    for j = 1 : 2
     for i = 2 : length(zs)
         z = zs(i);
         i1 = intensities(:,:,i);
-        ip1 = fresnelprop(e_guess,lambda,z,dx, nx * 2); % propagate to the out-of focus z
+        ip1 = fresnelprop(e0_update,lambda,z,dx, nx * 2); % propagate to the out-of focus z
         e1_update = sqrt(i1) .* (ip1 ./ abs(ip1));
         %back-propagate
         ip0 = fresnelprop(e1_update, lambda, -z, dx, nx * 2);
@@ -21,6 +23,7 @@ if strcmp(type,'mean') == 1
     e0_update = zeros(nx, nx);
     for i = 2 : length(zs)
         e0_update = e0_update + update(:,:,i - 1) / (length(zs) - 1);
+    end
     end
     
 elseif strcmp(type,'sequential') == 1
